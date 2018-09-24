@@ -2,18 +2,32 @@
 
 void Cloud::setCloud()
 {
-	float HI = 25;
-	float LO = -25;
+	float HI = 25.0;
+	float LO = -25.0;
 	bool flag = false;
 	PointCloud<PointXYZ>::Ptr cloud_test(new PointCloud<PointXYZ>);
 	PointXYZ point;
 
-	srand(static_cast <unsigned> (time(0)));
+	random_device rd;
+	mt19937 gen(rd());
 
-	for (int i = 0; i < 5000; i++) {
-		point.x = LO + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (HI - LO)));
-		point.y = LO + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (HI - LO)));
-		point.z = LO + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (HI - LO)));
+	int expValue = -5 + gen() % 5;
+	int dispercion = 4 + gen() % 4;
+
+	std::default_random_engine generator;
+	std::normal_distribution<float> distribution(expValue, dispercion);
+
+	for (int i = 0; i < 5000; i++)
+	{
+		float number1 = distribution(generator);
+		float number2 = distribution(generator);
+		float number3 = distribution(generator);
+		if ((number1 >= LO) && (number1 < HI))
+			point.x = number1;
+		if ((number2 >= LO) && (number2 < HI))
+			point.y = number2;
+		if ((number3 >= LO) && (number3 < HI))
+			point.z = number3;
 		cloud_test->push_back(point);
 	}
 
