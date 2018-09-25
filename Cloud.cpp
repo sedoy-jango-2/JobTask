@@ -19,15 +19,9 @@ void Cloud::setCloud()
 
 	for (int i = 0; i < 5000; i++)
 	{
-		float number1 = distribution(generator);
-		float number2 = distribution(generator);
-		float number3 = distribution(generator);
-		if ((number1 >= LO) && (number1 < HI))
-			point.x = number1;
-		if ((number2 >= LO) && (number2 < HI))
-			point.y = number2;
-		if ((number3 >= LO) && (number3 < HI))
-			point.z = number3;
+		point.x = distribution(generator);
+		point.y = distribution(generator);
+		point.z = distribution(generator);
 		cloud_test->push_back(point);
 	}
 
